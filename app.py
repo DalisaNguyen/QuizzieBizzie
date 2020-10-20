@@ -1,6 +1,6 @@
+from collections import Counter
 from flask import Flask, render_template, url_for, request, redirect, Response
 from flask_sqlalchemy import SQLAlchemy
-from datetime import datetime
 
 app = Flask(__name__)
 app.config['SQLALCHEMY_DATABASE_URI'] = 'sqlite:///test.db'
@@ -56,19 +56,7 @@ class Answer(db.Model):
 # Web Views
 @app.route('/')
 def index():
-    # example - will be removed at the end
-    quiz_object = Quiz.query.filter_by(quiz_name="What fruit should you eat?").first_or_404()
-    # example terminal print statements
-    print(quiz_object) # models are objects
-    print(quiz_object.quiz_name)
-    # to access the objects, either use a loop or first_or_404 with a filter
-    for question in quiz_object.questions:
-        print(question.question_name)
-        print(question.answers) # the question model uses answers to connect to answer objects
-        for answer in question.answers: 
-            print("Answer: " + str(answer.answer_name) + "\t Result: " + str(answer.result))
-        print('\n')
-    return render_template('index.html', quiz=quiz_object)
+    return render_template('index.html')
 
 @app.route('/create/quiz', methods=['POST', 'GET'])
 def create_quiz():
@@ -85,7 +73,7 @@ def create_quiz():
             question_one_answer_one = request.form.get('questionOneAnswerOne', None)
             question_one_answer_two = request.form.get('questionOneAnswerTwo', None)
             question_one_answer_three = request.form.get('questionOneAnswerThree', None)
-            question_one_answer_four = request.form.get('questionOneAnswerFour', None)
+            question_one_answer_four = request.form.get('questionOneAnswerFour', None) 
 
             question_two = request.form.get('questionTwo', None)
             question_two_answer_one = request.form.get('questionTwoAnswerOne', None)
@@ -190,23 +178,21 @@ def create_quiz():
             print(e)
         return redirect('/create/quiz')
     else:
-        # test for quizzes
-        quizzes = Quiz.query.all()
-        for q in quizzes:
-            print('Quiz: ' + str(q.quiz_name))
-            for qu in q.questions:
-                print(qu.question_name)
-                for a in qu.answers:
-                    print(a.answer_name)
-                print('\n')
-
-
         return render_template('create_quiz.html')
 
     
-@app.route('/take/quiz')
-def take_quiz():
-    return render_template('take_quiz.html')
+@app.route('/take/quiz/<int:id>', methods=['POST', 'GET'])
+def take_quiz(id):
+    quiz_object = Quiz.query.filter_by(quiz_id=id).first_or_404()
+    print("Quiz Object" + str(quiz_object.quiz_name))
+    results = []
+    if request.method == "POST":
+        for question in quiz_object.questions:
+            result = request.form.get(str(question.question_id), -5)
+            results.append(result)
+        final_result = Counter(results).most_common(1)[0][0]
+        return render_template("result.html", result=final_result)
+    return render_template('take_quiz.html', quiz=quiz_object)
 
 @app.route('/result')
 def result():
@@ -214,7 +200,9 @@ def result():
 
 @app.route('/view/all/quizzes')
 def view_all_quizzes():
-    return render_template('view_all_quizzes.html')
+    # query all objects
+    quiz_objects = Quiz.query.order_by(Quiz.quiz_id).all()
+    return render_template('view_all_quizzes.html', quiz= quiz_objects)
 
 if __name__ == "__main__":
     app.run(debug=True)
