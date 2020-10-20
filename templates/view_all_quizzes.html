@@ -1,4 +1,4 @@
-!<DOCTYPE html>
+<!DOCTYPE html>
     <html>
         <head>
             <meta charset="utf-8">
@@ -13,15 +13,17 @@
             </header>
 
             <main> 
-                <ul>
-                    <li>
-                         <!-- default link -->
-                         <a href="url">Default Quiz</a>
-                    </li>
-                    <li>
-                        <!-- user created links --> 
-                    </li> 
-                </ul>
+                <form>
+                    {% if quiz %}
+                        <ul>
+                            {% for quizzes in quiz %}
+                            <li> 
+                                <a href="/take/quiz/{{quizzes.quiz_id}}">{{quizzes.quiz_name}}</a>  
+                            </li>
+                            {% endfor %}
+                        </ul>
+                    {% endif %}
+                </form>
             </main>
         </body>
     </html>
