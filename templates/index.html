@@ -18,7 +18,7 @@
             <ol>
                 <li>Writing the character types</li>
                 <li>Creating compelling questions</li>
-                <li>Share with you friends</li>
+                <li>Share with your friends</li>
             </ol>
         </div>
 
@@ -26,6 +26,21 @@
             <button><
         </div>
 
+        <div id="example">
+            {% if quiz %}
+                <p>{{ quiz.quiz_name}}</p>
+                <ol>
+                    {% for question in quiz.questions %}
+                        <li>{{ question.question_name }}</li>
+                        <ul>
+                            {% for answer in question.answers %}
+                                <li>{{ answer.answer_name }}</li>
+                            {% endfor %}
+                        </ul>
+                    {% endfor %}
+                </ol>
+            {% endif %}
+        </div>
 
     </main>
 </body>
