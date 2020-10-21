@@ -2,6 +2,7 @@
 <html>
     <head>
         <title>Create a Quiz</title>
+        {% include 'header.html' %}
     </head>
     <body>
         <header>
@@ -11,7 +12,7 @@
             {% endif %}
         </header>
         <main>
-            <form action="/create/quiz" method="post">
+            <form action="/create/quiz" method="post" data-create-quiz="form">
                 <div>
                     <label>Title of Quiz</label>
                     <input name="quizTitle">
@@ -122,8 +123,12 @@
                 </div>
                 <hr>
 
-                <button type="submit">Submit</button>
+                <a href="/view/all/quizzes"><button type="submit">Submit</button></a>
             </form>
         </main>
+        <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
+        <script src="scripts/formhandler.js" charset="utf-8"></script>
+        <script src="scripts/main.js" charset="utf-8"></script>
+        <script src="scripts/datastore.js" charset="utf-8"></script>
     </body>
 </html>
