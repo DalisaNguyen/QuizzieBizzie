@@ -176,7 +176,7 @@ def create_quiz():
             db.session.commit()
         except Exception as e:
             print(e)
-        return redirect('/create/quiz')
+        return redirect('/view/all/quizzes')
     else:
         return render_template('create_quiz.html')
 

@@ -5,13 +5,14 @@
             <meta name="viewport" content="width=device-width, initial-scale=1">
             <title> Your Results </title>
             <link rel="stylesheet" href="stylesheets/styles.css">
+            {% include 'header.html' %}
         </head>
     
         <body>
             <header> 
                 <h1> Your Results </h1>
             </header>
-            <p>You got {{ result }}!</p>
+            <p>You got "{{ result }}"!</p>
             <div>
                 <a href="/" type="button">Back To Main Page</button>
             </div>
