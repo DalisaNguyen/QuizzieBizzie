@@ -9,13 +9,38 @@
         </head>
     
         <body>
+            {% include 'navbar.html' %}
             <header> 
                 <h1> Your Results </h1>
             </header>
             <p>You got "{{ result }}"!</p>
+            <!-- <p>This is a test!: {{ url }}</p> -->
             <div>
                 <a href="/" type="button">Back To Main Page</button>
             </div>
-    
+            
+            <div>
+                <a href="{{ url }}" type="button">Retry</a>
+
+            </div>
+            
+            <div>
+                <p>Share Quiz</p> 
+            </div>  
+
+            <input type = "url" value = "{{ url }}" id = "quizUrl">
+            <button onclick="CopyFunc()">Copy text</button>
+
+            <script>
+                document.getElementById("quizUrl").value = window.location.href;
+                function CopyFunc() {
+                  var copyText = document.getElementById("quizUrl");
+                  copyText.value = window.location.href;
+                  copyText.select();
+                  copyText.setSelectionRange(0, 99999)
+                  document.execCommand("copy");
+                  alert("Copied the Url: " +  copyText.value);
+                }
+            </script>
         </body>
     </html>
