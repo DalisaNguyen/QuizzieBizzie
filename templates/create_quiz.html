@@ -1,149 +1,151 @@
 <!DOCTYPE html>
 <html>
-    <head>
-        <title>Create a Quiz</title>
-        {% include 'header.html' %}
-    </head>
-    <body>
-        <header>
-            {% include 'navbar.html' %}
 
-            <h1>Create a Quiz</h1>
-            {% if message %}
-                <p>{{ message }}</p>
-            {% endif %}
-        </header>
-        <main>
-            <div class="container-fluid">
-                <div class="row">
-                    <div class="col-sm">
-                        <label>Title of Quiz</label>
-                        <input name="quizTitle" required maxlength="2000">
+<head>
+    <title>Create a Quiz</title>
+    {% include 'header.html' %}
+</head>
+
+<body>
+    <header>
+        {% include 'navbar.html' %}
+
+        <h1>Create a Quiz</h1>
+        {% if message %}
+        <p>{{ message }}</p>
+        {% endif %}
+    </header>
+    <main>
+        <div class="container-fluid">
+            <div class="row">
+                <div class="col-sm">
+                    <label>Title of Quiz</label>
+                    <input name="quizTitle" required maxlength="2000">
+                </div>
+            </div>
+            <div class="row">
+                <!-- COLUMN 1 -->
+                <div class="col-sm">
+                    <div>
+                        <label>Question 1</label>
+                        <input name="questionOne" required maxlength="2000">
+                    </div>
+                    <div>
+                        <label>Question 2</label>
+                        <input name="questionTwo" required maxlength="2000">
+                    </div>
+                    <div>
+                        <label>Question 3</label>
+                        <input name="questionThree" required maxlength="2000">
+                    </div>
+                    <div>
+                        <label>Question 4</label>
+                        <input name="questionFour" required maxlength="2000">
+                    </div>
+                    <div></div>
+                </div>
+
+                <!-- COLUMN 2 -->
+                <div class="col-sm">
+                    <div>
+                        <label>Answer for Result 1</label>
+                        <input name="questionOneAnswerOne" required maxlength="2000">
+                    </div>
+                    <div>
+                        <label>Answer for Result 1</label>
+                        <input name="questionTwoAnswerOne" required maxlength="2000">
+                    </div>
+                    <div>
+                        <label>Answer for Result 1</label>
+                        <input name="questionThreeAnswerOne" required maxlength="2000">
+                    </div>
+                    <div>
+                        <label>Answer for Result 1</label>
+                        <input name="questionFourAnswerOne" required maxlength="2000">
+                    </div>
+                    <div>
+                        <label>Result 1</label>
+                        <input name="resultOne" required maxlength="2000">
                     </div>
                 </div>
-                <div class="row">
-                     <!-- COLUMN 1 -->
-                    <div class="col-sm">
-                        <div>
-                            <label>Question 1</label>
-                            <input name="questionOne" required maxlength="2000">
-                        </div>
-                        <div>
-                            <label>Question 2</label>
-                            <input name="questionTwo" required maxlength="2000">
-                        </div>
-                        <div>
-                            <label>Question 3</label>
-                            <input name="questionThree" required maxlength="2000">
-                        </div>
-                        <div>
-                            <label>Question 4</label>
-                            <input name="questionFour" required maxlength="2000">
-                        </div>
-                        <div></div>
+
+                <!-- COLUMN 3 -->
+                <div class="col-sm">
+                    <div>
+                        <label>Answer for Result 2</label>
+                        <input name="questionOneAnswerTwo" required maxlength="2000">
                     </div>
-                
-                    <!-- COLUMN 2 -->
-                    <div class="col-sm">
-                        <div>
-                            <label>Answer for Result 1</label>
-                            <input name="questionOneAnswerOne" required maxlength="2000">
-                        </div>
-                        <div>
-                            <label>Answer for Result 1</label>
-                            <input name="questionTwoAnswerOne" required maxlength="2000">
-                        </div>
-                        <div>
-                            <label>Answer for Result 1</label>
-                            <input name="questionThreeAnswerOne" required maxlength="2000">
-                        </div>
-                        <div>
-                            <label>Answer for Result 1</label>
-                            <input name="questionFourAnswerOne" required maxlength="2000">
-                        </div>
-                        <div>   
-                            <label>Result 1</label>
-                            <input name="resultOne" required maxlength="2000">
-                        </div> 
+                    <div>
+                        <label>Answer for Result 2</label>
+                        <input name="questionTwoAnswerTwo" required maxlength="2000">
                     </div>
-    
-                    <!-- COLUMN 3 -->
-                    <div class="col-sm">
-                        <div>
-                            <label>Answer for Result 2</label>
-                            <input name="questionOneAnswerTwo" required maxlength="2000">
-                        </div>
-                        <div>
-                            <label>Answer for Result 2</label>
-                            <input name="questionTwoAnswerTwo" required maxlength="2000">
-                        </div>
-                        <div>
-                            <label>Answer for Result 2</label>
-                            <input name="questionThreeAnswerTwo" required maxlength="2000">
-                        </div>
-                        <div>
-                            <label>Answer for Result 2</label>
-                            <input name="questionFourAnswerTwo" required maxlength="2000">
-                        </div>
-                        <div>
-                            <label>Result 2</label>
-                            <input name="resultTwo" required maxlength="2000">
-                        </div>
+                    <div>
+                        <label>Answer for Result 2</label>
+                        <input name="questionThreeAnswerTwo" required maxlength="2000">
                     </div>
-       
-                    <!-- COlUMN 4 -->
-                    <div class="col-sm">
-                        <div>
-                            <label>Answer for Result 3</label>
-                            <input name="questionOneAnswerThree" required maxlength="2000">
-                        </div>
-                        <div>
-                            <label>Answer for Result 3</label>
-                            <input name="questionTwoAnswerThree" required maxlength="2000">
-                        </div>
-                        <div>
-                            <label>Answer for Result 3</label>
-                            <input name="questionThreeAnswerThree" required maxlength="2000">
-                        </div>
-                        <div>
-                            <label>Answer for Result 3</label>
-                            <input name="questionFourAnswerThree" required maxlength="2000">
-                        </div>
-                        <div>
-                            <label>Result 3</label>
-                            <input name="resultThree" required maxlength="2000">
-                        </div>
+                    <div>
+                        <label>Answer for Result 2</label>
+                        <input name="questionFourAnswerTwo" required maxlength="2000">
                     </div>
-                    
-                    <!-- COlUMN 5 -->
-                    <div class="col-sm">
-                        <div>
-                            <label>Answer for Result 4</label>
-                            <input name="questionOneAnswerFour" required maxlength="2000">
-                        </div>
-                        <div>
-                            <label>Answer for Result 4</label>
-                            <input name="questionTwoAnswerFour" required maxlength="2000">
-                        </div>
-                        <div>
-                            <label>Answer for Result 4</label>
-                            <input name="questionThreeAnswerFour" required maxlength="2000">
-                        </div>
-                        <div>
-                            <label>Answer for Result 4</label>
-                            <input name="questionFourAnswerFour" required maxlength="2000">
-                        </div>
-                        <div>
-                            <label>Result 4</label>
-                            <input name="resultFour" required maxlength="2000">
-                        </div>
+                    <div>
+                        <label>Result 2</label>
+                        <input name="resultTwo" required maxlength="2000">
+                    </div>
+                </div>
+
+                <!-- COlUMN 4 -->
+                <div class="col-sm">
+                    <div>
+                        <label>Answer for Result 3</label>
+                        <input name="questionOneAnswerThree" required maxlength="2000">
+                    </div>
+                    <div>
+                        <label>Answer for Result 3</label>
+                        <input name="questionTwoAnswerThree" required maxlength="2000">
+                    </div>
+                    <div>
+                        <label>Answer for Result 3</label>
+                        <input name="questionThreeAnswerThree" required maxlength="2000">
+                    </div>
+                    <div>
+                        <label>Answer for Result 3</label>
+                        <input name="questionFourAnswerThree" required maxlength="2000">
+                    </div>
+                    <div>
+                        <label>Result 3</label>
+                        <input name="resultThree" required maxlength="2000">
+                    </div>
+                </div>
+
+                <!-- COlUMN 5 -->
+                <div class="col-sm">
+                    <div>
+                        <label>Answer for Result 4</label>
+                        <input name="questionOneAnswerFour" required maxlength="2000">
+                    </div>
+                    <div>
+                        <label>Answer for Result 4</label>
+                        <input name="questionTwoAnswerFour" required maxlength="2000">
+                    </div>
+                    <div>
+                        <label>Answer for Result 4</label>
+                        <input name="questionThreeAnswerFour" required maxlength="2000">
+                    </div>
+                    <div>
+                        <label>Answer for Result 4</label>
+                        <input name="questionFourAnswerFour" required maxlength="2000">
+                    </div>
+                    <div>
+                        <label>Result 4</label>
+                        <input name="resultFour" required maxlength="2000">
                     </div>
                 </div>
             </div>
+        </div>
 
-          
 
-            <!-- <form action="/create/quiz" method="post" data-create-quiz="form">
+
+        <!-- <form action="/create/quiz" method="post" data-create-quiz="form">
                 <div>
                     <label>Title of Quiz</label>
                     <input name="quizTitle" required maxlength="2000">
@@ -255,7 +257,9 @@
 
                 <a href="/view/all/quizzes"><button type="submit">Submit</button></a>
             </form> -->
+        {% include 'script.html' %}
         <script src="scripts/main.js" charset="utf-8"></script>
         <script src="scripts/datastore.js" charset="utf-8"></script>
-    </body>
+</body>
+
 </html>
