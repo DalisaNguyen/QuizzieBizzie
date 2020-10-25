@@ -184,14 +184,14 @@ def create_quiz():
 @app.route('/take/quiz/<int:id>', methods=['POST', 'GET'])
 def take_quiz(id):
     quiz_object = Quiz.query.filter_by(quiz_id=id).first_or_404()
-    print("Quiz Object" + str(quiz_object.quiz_name))
     results = []
     if request.method == "POST":
         for question in quiz_object.questions:
             result = request.form.get(str(question.question_id), -5)
             results.append(result)
         final_result = Counter(results).most_common(1)[0][0]
-        return render_template("result.html", result=final_result)
+        url = "/take/quiz/" + str(id)
+        return render_template("result.html", result=final_result, url=url)
     return render_template('take_quiz.html', quiz=quiz_object)
 
 @app.route('/result')
@@ -203,6 +203,10 @@ def view_all_quizzes():
     # query all objects
     quiz_objects = Quiz.query.order_by(Quiz.quiz_id).all()
     return render_template('view_all_quizzes.html', quiz= quiz_objects)
+
+@app.route('/about')
+def about():
+    return render_template('about.html')
 
 if __name__ == "__main__":
     app.run(debug=True)
