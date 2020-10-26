@@ -3,33 +3,32 @@ body {
 }
 
 #home-body {
-  background-image: url("https://www.wallpapertip.com/wmimgs/14-144246_minimalist-wallpaper-desert.png");
+  background-image: url("/static/images/homePage.png");
   background-repeat: no-repeat;
   background-attachment: fixed;
   background-size: cover;
 }
 
 #create-body {
-  background-image: url("https://cache.desktopnexus.com/cropped-wallpapers/2313/2313208-1920x1080-[DesktopNexus.com].jpg?st=vBdcNBDncSyyETOhXs7Fuw&e=1603678452");
+  background-image: url("/static/images/createQuiz.jpg");
   background-repeat: no-repeat;
   background-attachment: fixed;
   background-size: cover;
 }
 
 #all-body {
-  background-image: url("https://images.hdqwalls.com/download/iceberg-minimalist-4k-qp-1920x1080.jpg");
+  background-image: url("/static/images/allQuiz.jpg");
   background-repeat: no-repeat;
   background-attachment: fixed;
   background-size: cover;
 }
 
 #about-body {
-  background-image: url("https://images.wallpapersden.com/image/download/digital-pink-mountains_61997_1920x1080.jpg");
+  background-image: url("/static/images/about.jpg");
   background-repeat: no-repeat;
   background-attachment: fixed;
   background-size: cover;
 }
-
 
 h1 {
   color: white;
@@ -111,4 +110,9 @@ h1{
   display: block; 
   margin-left: 10%;
   margin-right: 10%;
+}
+
+.navbar-nav li {
+  padding-left: 30px;
+  padding-right: 30px;
 }
