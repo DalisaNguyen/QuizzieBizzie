@@ -4,8 +4,6 @@
     <title>Create a Quiz</title>
     {% include 'header.html' %}
 </head>
-
-<body id="create-body">
     <header>
         {% include 'navbar.html' %}
 
@@ -14,6 +12,7 @@
         <p>{{ message }}</p>
         {% endif %}
     </header>
+<body id="create-body">
     <main class="jumbotron" id="create-quiz">
         <div class="container-fluid">
             <form action="/create/quiz" method="post" data-create-quiz="form">
@@ -22,6 +21,7 @@
                         <label>Title of Quiz</label>
                         <input name="quizTitle" class="form-control" required maxlength="2000">
                     </div>
+                    <div></div>
                 </div>
                 <hr>
                 <div class="row">
@@ -165,8 +165,9 @@
                 <hr>
                 <a class="btn" id="home-Buttons" href="/view/all/quizzes">Submit</a>
             </form>
-            
+          
          <!-- <form action="/create/quiz" method="post" data-create-quiz="form">
+
                 <div>
                     <label>Title of Quiz</label>
                     <input name="quizTitle" required maxlength="2000">
@@ -278,9 +279,9 @@
 
                 <a href="/view/all/quizzes"><button type="submit">Submit</button></a>
             </form> -->
-            
         {% include 'script.html' %}
         <script src="scripts/main.js" charset="utf-8"></script>
         <script src="scripts/datastore.js" charset="utf-8"></script>
-    </body>
+</body>
+
 </html>

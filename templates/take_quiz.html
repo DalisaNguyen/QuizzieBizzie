@@ -5,12 +5,12 @@
     <title>Take a Quiz</title>
     {% include 'header.html' %}
 </head>
-
 <body id="create-body">
     {% include 'navbar.html' %}
     <header>
         <h1>Take a Quiz</h1>
     </header>
+
     <main class="jumbotron" id="take-quiz">
         <form action="/take/quiz/{{ quiz.quiz_id }}" method="post">
             {% if quiz %}
