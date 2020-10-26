@@ -1,33 +1,38 @@
 <!DOCTYPE html>
 <html>
-    <head>
-        <title>Take a Quiz</title>
-        {% include 'header.html' %}
-    </head>
-    <body>
-        {% include 'navbar.html' %}
-        <header>
-            <h1>Take a Quiz</h1>
-        </header>
-        <main>
-            <form action="/take/quiz/{{ quiz.quiz_id }}" method="post">
-                {% if quiz %}
-                    <h2>{{ quiz.quiz_name }}</h2>
-                    <ol>
-                        {% for question in quiz.questions %}
-                            <li>{{question.question_name}}</li>
-                            <ul>
-                                {% for answer in question.answers %}
-                                    <label>
-                                        <input type="radio" name="{{ question.question_id }}" value="{{ answer.result }}">{{ answer.answer_name }}
-                                    </label>
-                                {% endfor %}
-                            </ul>   
-                        {% endfor %}
-                    </ol>
-                {% endif %}
-                <input type="submit">
-            </form>
-        </main>
-    </body>
+
+<head>
+    <title>Take a Quiz</title>
+    {% include 'header.html' %}
+</head>
+
+<body id="create-body">
+    {% include 'navbar.html' %}
+    <header>
+        <h1>Take a Quiz</h1>
+    </header>
+    <main class="jumbotron" id="take-quiz">
+        <form action="/take/quiz/{{ quiz.quiz_id }}" method="post">
+            {% if quiz %}
+            <h2>{{ quiz.quiz_name }}</h2>
+            <ol>
+                {% for question in quiz.questions %}
+                <li>{{question.question_name}}</li>
+                <ul>
+                    {% for answer in question.answers %}
+                    <label>
+                        <input type="radio" name="{{ question.question_id }}"
+                            value="{{ answer.result }}">{{ answer.answer_name }}
+                    </label>
+                    {% endfor %}
+                </ul>
+                {% endfor %}
+            </ol>
+            {% endif %}
+            <input class="btn" id="home-Buttons" type="submit">
+        </form>
+    </main>
+    {% include 'script.html' %}
+</body>
+
 </html>

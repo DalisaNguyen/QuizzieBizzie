@@ -1,46 +1,44 @@
 <!DOCTYPE html>
-    <html>
-        <head>
-            <meta charset="utf-8">
-            <meta name="viewport" content="width=device-width, initial-scale=1">
-            <title> Your Results </title>
-            <link rel="stylesheet" href="stylesheets/styles.css">
-            {% include 'header.html' %}
-        </head>
-    
-        <body>
-            {% include 'navbar.html' %}
-            <header> 
-                <h1> Your Results </h1>
-            </header>
-            <p>You got "{{ result }}"!</p>
-            <!-- <p>This is a test!: {{ url }}</p> -->
-            <div>
-                <a href="/" type="button">Back To Main Page</button>
-            </div>
-            
-            <div>
-                <a href="{{ url }}" type="button">Retry</a>
+<html>
 
-            </div>
-            
-            <div>
-                <p>Share Quiz</p> 
-            </div>  
+<head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <title> Your Results </title>
 
-            <input type = "url" value = "{{ url }}" id = "quizUrl">
-            <button onclick="CopyFunc()">Copy text</button>
+    {% include 'header.html' %}
+</head>
 
-            <script>
-                document.getElementById("quizUrl").value = window.location.href;
-                function CopyFunc() {
-                  var copyText = document.getElementById("quizUrl");
-                  copyText.value = window.location.href;
-                  copyText.select();
-                  copyText.setSelectionRange(0, 99999)
-                  document.execCommand("copy");
-                  alert("Copied the Url: " +  copyText.value);
-                }
-            </script>
-        </body>
-    </html>
+<body>
+    {% include 'navbar.html' %}
+    <header>
+        <h1> Your Results </h1>
+    </header>
+    <main id="result">
+        <h4>You got "{{ result }}"!</h4>
+        <!-- <p>This is a test!: {{ url }}</p> -->
+        <div>
+            <a href="/" type="button">Back To Main Page</button>   
+        </div>
+        <div>
+            <a href="{{ url }}" type="button">Retry</a>
+        </div>
+        <div>
+            <p>Share Quiz</p>
+        </div>
+
+        <input type="url" value="{{ url }}" id="quizUrl">
+        <button class="btn btn-outline-primary" onclick="CopyFunc()"><svg width="1em" height="1em" viewBox="0 0 16 16"
+                class="bi bi-clipboard" fill="currentColor" xmlns="http://www.w3.org/2000/svg">
+                <path fill-rule="evenodd"
+                    d="M4 1.5H3a2 2 0 0 0-2 2V14a2 2 0 0 0 2 2h10a2 2 0 0 0 2-2V3.5a2 2 0 0 0-2-2h-1v1h1a1 1 0 0 1 1 1V14a1 1 0 0 1-1 1H3a1 1 0 0 1-1-1V3.5a1 1 0 0 1 1-1h1v-1z" />
+                <path fill-rule="evenodd"
+                    d="M9.5 1h-3a.5.5 0 0 0-.5.5v1a.5.5 0 0 0 .5.5h3a.5.5 0 0 0 .5-.5v-1a.5.5 0 0 0-.5-.5zm-3-1A1.5 1.5 0 0 0 5 1.5v1A1.5 1.5 0 0 0 6.5 4h3A1.5 1.5 0 0 0 11 2.5v-1A1.5 1.5 0 0 0 9.5 0h-3z" />
+            </svg>
+        </button>
+    </main>
+    {% include 'script.html' %}
+    <script src="{{ url_for('static', filename='copy.js') }}"></script>
+</body>
+
+</html>
