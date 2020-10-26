@@ -6,19 +6,28 @@
     {% include 'header.html' %}
 </head>
 
-<body>
+<body id="home-body">
     {% include 'navbar.html' %}
-    <div class="container text-center" style="margin-top: 10%;">
-        <main>
-            <h1>Create A Character Quiz!</h1>
-            <p>"Which Character Are You?" quizzes are some of the most popular quizzes that exist.
-                This is a guide on how to make one for your brand. Here's what we'll cover.
+    <div class="container text-center">
+        <h1>Create A Quiz!</h1>
+        <main class="jumbotron" id="main-tag">
+            <p> Some of the most popular quizzes are ones that give you information that pertains to you.
+                You might have run across quizzes that are funny, serious, or completely random.
             </p>
-            <p>Writing the character types</p>
-            <p>Creating compelling questions</p>
-            <p>Share with your friends</p>
-            <a class="btn btn-info" href="/create/quiz">Start!</a>
-            <a class="btn btn-secondary" href="/view/all/quizzes">View All Quizzes</a>
+            <p>
+                Often times, curious users take these quizzes to explore different perspectives of themselves
+                given personalized results.
+            </p>
+            <p>
+                If you'd like to create a quick and easy quiz, follow these instructions!
+                Here's all you need to do:
+            </p>
+            <p>1. Name your quiz</p>
+            <p>2. Create your compelling questions</p>
+            <p>3. Provide answers and results</p>
+            <p>4. Share with your friends!</p>
+            <a class="btn" id="home-Buttons" href="/create/quiz">Start!</a>
+            <a class="btn" id="home-Buttons" href="/view/all/quizzes">View All Quizzes</a>
         </main>
     </div>
     {% include 'script.html' %}

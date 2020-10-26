@@ -5,28 +5,26 @@
     <title> View All Quizzes </title>
     {% include 'header.html' %}
 </head>
-
-<body>
+  
+<body id="all-body">
     {% include 'navbar.html' %}
     <div class="container text-center">
         <header>
             <h1> View All Quizzes </h1>
         </header>
-        <main>
+
+        <main> 
             <form>
                 {% if quiz %}
-                <ul class="list">
-                    {% for quizzes in quiz %}
-                    <li>
-                        <a href="/take/quiz/{{quizzes.quiz_id}}">{{quizzes.quiz_name}}</a>
-                    </li>
-                    {% endfor %}
-                </ul>
+                {% for quizzes in quiz %}
+                <p id="view-quizes">
+                    <a href="/take/quiz/{{quizzes.quiz_id}}">{{quizzes.quiz_name}}</a>
+                </p>
+                {% endfor %}
                 {% endif %}
             </form>
         </main>
     </div>
     {% include 'script.html' %}
 </body>
-
 </html>
