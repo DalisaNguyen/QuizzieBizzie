@@ -15,21 +15,16 @@
     {% include 'navbar.html' %}
     <div id="result-div">
         <header>
-            <h1> Your Results </h1>
+            <h1 style="text-shadow: 6px 5px 3px rgba(0,0,0,0.7);"> Your Results </h1>
         </header>
             <main id="result">
-                <h4>You got "{{ result }}"!</h4>
+                <h3>You got "{{ result }}"!</h4>
                 <!-- <p>This is a test!: {{ url }}</p> -->
                 <div>
-                    <a href="/" type="button">Back To Main Page</button>
+                    <a href="/" class="btn" id="home-Buttons" style="margin: 10% 2px 5% 2px">Back To Main Page</button>
+                    <a href="{{ url }}" class="btn" id="home-Buttons" style="margin: 10% 2px 5% 2px">Retry</a>
                 </div>
-                <div>
-                    <a href="{{ url }}" type="button">Retry</a>
-                </div>
-                <div>
                     <p>Share Quiz</p>
-                </div>
-    
                 <input type="url" value="{{ url }}" id="quizUrl">
                 <button class="btn btn-outline-primary" onclick="CopyFunc()"><svg width="1em" height="1em"
                         viewBox="0 0 16 16" class="bi bi-clipboard" fill="currentColor" xmlns="http://www.w3.org/2000/svg">
