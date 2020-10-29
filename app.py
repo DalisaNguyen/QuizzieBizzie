@@ -208,6 +208,10 @@ def view_all_quizzes():
 def about():
     return render_template('about.html')
 
+@app.route('/login')
+def login():
+    return render_template('login_CreateAcc.html')
+
 if __name__ == "__main__":
     app.run(debug=True)
 
