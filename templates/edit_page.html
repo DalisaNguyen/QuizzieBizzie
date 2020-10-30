@@ -1,0 +1,63 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>Edit Quiz</title>
+    {% include 'header.html' %}
+</head>
+    <header>
+        {% include 'navbar.html' %}
+        <h1 style="text-shadow: 6px 5px 3px rgba(0,0,0,0.7);">Edit Quiz</h1>
+    </header>
+<body id="create-body">
+    <main class="jumbotron" id="create-quiz">
+        <div class="container-fluid">
+            {% if session['username'] %}
+                {% if message %}
+                    <p>{{ message }}</p>
+                {% endif %}
+                {% if quiz %}
+                    <form action="/edit/quiz/{{ quiz.quiz_id }}" method="post" data-create-quiz="form">
+                        <div class="row">
+                            <div class="col-sm form-group">
+                                <label>Title of Quiz</label>
+                                <input name="quizTitle" class="form-control" required maxlength="200" placeholder="What Flower Are You?" value="{{ quiz.quiz_name }}">
+                            </div>
+                            <div></div>
+                        </div>
+                        <hr>
+                        <div class="row">
+                            <div class="col-sm form-group">
+                                {% for question in quiz.questions %}
+                                    <div>
+                                        <label>Question {{ loop.index }}</label>
+                                        <input name="question_{{ loop.index }}" class="form-control form-control-sm" required maxlength="200" value="{{ question.question_name }}">
+                                    </div>
+                                    <hr>
+                                    <div></div>
+                                {% endfor %}
+                            </div>
+                            {% for question in quiz.questions %}
+                                <div class="col-sm form-group">
+                                    {% set first_loop = loop %}
+                                    {% for answer in question.answers %}
+                                        <div>
+                                            <label>Answer for Result {{ loop.index }}</label>
+                                            <input name="questionAnswer_{{ first_loop.index }}_{{ loop.index }}" class="form-control form-control-sm" required maxlength="200" value="{{ answer.answer_name }}">
+                                        </div>
+                                        <hr>
+                                    {% endfor %}
+                                </div>
+                                {% endfor %}
+                        </div>
+                        <input class="btn" id="home-Buttons" type="submit">
+                    </form>
+                {% endif %}
+            {% else %}
+                <p>You need to log in to view this page.</p>
+            {% endif %}
+        {% include 'script.html' %}
+        <script src="scripts/main.js" charset="utf-8"></script>
+        <script src="scripts/datastore.js" charset="utf-8"></script>
+</body>
+
+</html>

@@ -1,10 +1,11 @@
 from collections import Counter
-from flask import Flask, render_template, url_for, request, redirect, Response
+from flask import Flask, render_template, url_for, request, redirect, Response, session, escape
 from flask_sqlalchemy import SQLAlchemy
 
 app = Flask(__name__)
 app.config['SQLALCHEMY_DATABASE_URI'] = 'sqlite:///test.db'
 db = SQLAlchemy(app)
+app.secret_key = 'secret123'
 
 # Many-to-many fields
 ans = db.Table('ans',
@@ -22,6 +23,7 @@ class Quiz(db.Model):
     quiz_id = db.Column(db.Integer, primary_key=True)
     quiz_name = db.Column(db.String(200), nullable=False)
     questions = db.relationship("Question", secondary=ques, backref=db.backref("questions", lazy="dynamic"))
+    user = db.Column(db.Integer, db.ForeignKey('user.user_id'))
 
     def __str__(self):
         return '<Quiz ' + str(self.quiz_id) + ', ' + str(self.quiz_name) + '>'
@@ -51,11 +53,22 @@ class Answer(db.Model):
     def __repr__(self):
         return '<Answer ' + str(self.answer_id) + ', ' + str(self.answer_name) + '>'
 
+class User(db.Model):
+    user_id = db.Column(db.Integer, primary_key=True)
+    username = db.Column(db.String(200), nullable=False)
+    password = db.Column(db.String(200), nullable=False)
+    quiz = db.relationship("Quiz")
 
+    def __str__(self):
+        return '<User ' + str(self.user_id) + ', ' + str(self.username) + '>'
+
+    def __repr__(self):
+        return '<User ' + str(self.user_id) + ', ' + str(self.username) + '>'
 
 # Web Views
 @app.route('/')
 def index():
+    print(session)
     return render_template('index.html')
 
 @app.route('/create/quiz', methods=['POST', 'GET'])
@@ -166,7 +179,7 @@ def create_quiz():
             question_four.answers.append(answer_four)
             db.session.commit()
 
-            quiz = Quiz(quiz_name=quiz_name)
+            quiz = Quiz(quiz_name=quiz_name, user=session['user_id'])
             db.session.add(quiz)
             db.session.commit()
             quiz.questions.append(question_one)
@@ -207,6 +220,167 @@ def view_all_quizzes():
 @app.route('/about')
 def about():
     return render_template('about.html')
+
+@app.route('/login', methods=['POST', 'GET'])
+def login():
+    if request.method == "POST":
+        session.pop('username', None)
+        username = request.form.get('username', None)
+        password = request.form.get('password', None)
+        user_object = User.query.filter_by(username=username).first_or_404()
+        print(username)
+        print(password)
+        if password == user_object.password:
+            session['username'] = username
+            session['user_id'] = user_object.user_id
+            return render_template("index.html")
+        else:
+            return render_template('login_register.html', message="Login failed.")
+    return render_template('login_register.html')
+
+@app.route('/logout')
+def logout():
+    if session['username']:
+        session.pop('username', None)
+        session.pop('user_id', None)
+    return render_template('index.html')
+
+@app.route('/edit/quiz/<int:id>', methods=['POST', 'GET'])
+def edit_quiz(id):
+    quiz_object = Quiz.query.filter_by(quiz_id=id).first_or_404()
+    if request.method == "POST":
+        quiz_name = request.form.get('quizTitle', None)
+        result_one = request.form.get('resultOne', None)
+        result_two = request.form.get('resultTwo', None)
+        result_three = request.form.get('resultThree', None)
+        result_four = request.form.get('resultFour', None)
+
+        question_one = request.form.get('question_1', None)
+        question_one_answer_one = request.form.get('questionAnswer_1_1', None)
+        question_one_answer_two = request.form.get('questionAnswer_1_2', None)
+        question_one_answer_three = request.form.get('questionAnswer_1_3', None)
+        question_one_answer_four = request.form.get('questionAnswer_1_4', None) 
+
+        question_two = request.form.get('question_2', None)
+        question_two_answer_one = request.form.get('questionAnswer_2_1', None)
+        question_two_answer_two = request.form.get('questionAnswer_2_2', None)
+        question_two_answer_three = request.form.get('questionAnswer_2_3', None)
+        question_two_answer_four = request.form.get('questionAnswer_2_4', None)
+
+        question_three = request.form.get('question_3', None)
+        question_three_answer_one = request.form.get('questionAnswer_3_1', None)
+        question_three_answer_two = request.form.get('questionAnswer_3_2', None)
+        question_three_answer_three = request.form.get('questionAnswer_3_3', None)
+        question_three_answer_four = request.form.get('questionAnswer_3_4', None)
+         
+        question_four = request.form.get('question_4', None)
+        question_four_answer_one = request.form.get('questionAnswer_4_1', None)
+        question_four_answer_two = request.form.get('questionAnswer_4_2', None)
+        question_four_answer_three = request.form.get('questionAnswer_4_3', None)
+        question_four_answer_four = request.form.get('questionAnswer_4_4', None)
+        
+        quiz_object.quiz_name = quiz_name
+        for x, question in enumerate(quiz_object.questions): 
+            if x == 0:
+                question.question_name = question_one
+                for y, answer in enumerate(question.answers):
+                    if y == 0:
+                        answer.answer_name = question_one_answer_one
+                    elif y == 1:
+                        answer.answer_name = question_one_answer_two
+                    elif y == 2:
+                        answer.answer_name = question_one_answer_three
+                    else:
+                        answer.answer_name = question_one_answer_four
+                db.session.commit()
+            elif x == 1:
+                question.question_name = question_two
+                for y, answer in enumerate(question.answers):
+                    if y == 0:
+                        answer.answer_name = question_two_answer_one
+                    elif y == 1:
+                        answer.answer_name = question_two_answer_two
+                    elif y == 2:
+                        answer.answer_name = question_two_answer_three
+                    else:
+                        answer.answer_name = question_two_answer_four
+                db.session.commit()
+            elif x == 2:
+                question.question_name = question_three
+                for y, answer in enumerate(question.answers):
+                    if y == 0:
+                        answer.answer_name = question_three_answer_one
+                    elif y == 1:
+                        answer.answer_name = question_three_answer_two
+                    elif y == 2:
+                        answer.answer_name = question_three_answer_three
+                    else:
+                        answer.answer_name = question_three_answer_four
+                db.session.commit()
+            else:
+                question.question_name = question_four
+                for y, answer in enumerate(question.answers):
+                    if y == 0:
+                        answer.answer_name = question_four_answer_one
+                    elif y == 1:
+                        answer.answer_name = question_four_answer_two
+                    elif y == 2:
+                        answer.answer_name = question_four_answer_three
+                    else:
+                        answer.answer_name = question_four_answer_four
+                db.session.commit()
+            print(question.question_name)
+            db.session.commit()
+        return render_template("edit_page.html", quiz=quiz_object, message="The quiz has been updated.")
+    return render_template('edit_page.html', quiz=quiz_object)
+
+@app.route('/account/<int:id>')
+def account(id):
+    quiz_object = Quiz.query.filter_by(user=id)
+    return render_template('account_page.html', quiz=quiz_object)
+
+@app.route('/delete/<int:id>')
+def delete(id):
+    quizzes = Quiz.query.filter_by(user=id)
+    for quiz in quizzes:
+        for question in quiz.questions:
+            for answer in question.answers:
+                db.session.delete(answer)
+            db.session.delete(question)
+        db.session.delete(quiz)
+    user = User.query.filter_by(user_id=id).first_or_404()
+    db.session.delete(user)
+    db.session.commit()
+    if session['username']:
+        session.pop('username', None)
+        session.pop('user_id', None)
+    return render_template('index.html')
+
+    
+@app.route('/delete/quiz/<int:id>')
+def delete_quiz(id):
+    url = '/account/' + str(session['user_id'])
+    quiz = Quiz.query.filter_by(quiz_id=id).first_or_404()
+    for question in quiz.questions:
+        for answer in question.answers:
+            db.session.delete(answer)
+        db.session.delete(question)
+    db.session.delete(quiz)
+    db.session.commit()
+    return redirect(url)
+
+
+@app.route('/register', methods=['POST', 'GET'])
+def register():
+    if request.method == "POST":
+        username = request.form.get('new_username', None)
+        password = request.form.get('new_password', None)
+        new_user = User(username=username, password=password)
+        db.session.add(new_user)
+        db.session.commit()
+        return render_template('index.html')
+    return render_template('login_register.html')
+
 
 if __name__ == "__main__":
     app.run(debug=True)

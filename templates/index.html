@@ -11,6 +11,7 @@
     <div class="container text-center">
         <h1 style="text-shadow: 6px 5px 3px rgba(0,0,0,0.7);">Create A Quiz!</h1>
         <main class="jumbotron" id="main-tag">
+            {% if session['username'] %}
             <p> Some of the most popular quizzes are ones that give you information that pertains to you.
                 You might have run across quizzes that are funny, serious, or completely random.
             </p>
@@ -28,6 +29,26 @@
             <p>4. Share with your friends!</p>
             <a class="btn" id="home-Buttons" href="/create/quiz">Start!</a>
             <a class="btn" id="home-Buttons" href="/view/all/quizzes">View All Quizzes</a>
+            {% else %}
+            <p> Some of the most popular quizzes are ones that give you information that pertains to you.
+                You might have run across quizzes that are funny, serious, or completely random.
+            </p>
+            <p>
+                Often times, curious users take these quizzes to explore different perspectives of themselves
+                given personalized results.
+            </p>
+            <p>
+                If you'd like to create a quick and easy quiz, follow these instructions!
+                Here's all you need to do:
+            </p>
+            <p>1. Name your quiz</p>
+            <p>2. Create your compelling questions</p>
+            <p>3. Provide answers and results</p>
+            <p>4. Share with your friends!</p>
+            <br>
+            <p>In order make a quiz you first have to make an Account or Login</p>
+            <a class="btn" id="home-Buttons" href="/login">Login</a>
+            {% endif %}
         </main>
     </div>
     {% include 'script.html' %}
