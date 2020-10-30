@@ -235,8 +235,8 @@ def login():
             session['user_id'] = user_object.user_id
             return render_template("index.html")
         else:
-            return render_template('login_CreateAcc.html', message="Login failed.")
-    return render_template('login_CreateAcc.html')
+            return render_template('login_register.html', message="Login failed.")
+    return render_template('login_register.html')
 
 @app.route('/logout')
 def logout():

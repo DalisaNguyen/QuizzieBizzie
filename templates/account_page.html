@@ -9,7 +9,11 @@
 <body id="home-body">
     {% include 'navbar.html' %}
     <div class="container text-center">
-        <h1 style="text-shadow: 6px 5px 3px rgba(0,0,0,0.7);">{{ session['username'] }}'s Account</h1>
+        <h1 style="text-shadow: 6px 5px 3px rgba(0,0,0,0.7);">Account 
+        {% if session['username'] %}
+            - {{ session['username'] }} 
+        {% endif %}
+        </h1>
         <main class="jumbotron" id="main-tag">
             <div class="container">
                 {% if session['username'] %}
