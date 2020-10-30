@@ -6,280 +6,168 @@
 </head>
     <header>
         {% include 'navbar.html' %}
-
         <h1 style="text-shadow: 6px 5px 3px rgba(0,0,0,0.7);">Create a Quiz</h1>
-        {% if message %}
-        <p>{{ message }}</p>
-        {% endif %}
     </header>
 <body id="create-body">
     <main class="jumbotron" id="create-quiz">
         <div class="container-fluid">
-            <form action="/create/quiz" method="post" data-create-quiz="form">
-                <div class="row">
-                    <div class="col-sm form-group">
-                        <label>Title of Quiz</label>
-                        <input name="quizTitle" class="form-control" required maxlength="2000" placeholder="What Flower Are You?">
-                    </div>
-                    <div></div>
-                </div>
-                <hr>
-                <div class="row">
-                    <!-- COLUMN 1 -->
-                    <div class="col-sm form-group">
-                        <div>
-                            <label>Question 1</label>
-                            <input name="questionOne" class="form-control form-control-sm" required maxlength="2000" placeholder="Favorite time of day?">
+            {% if session['username'] %}
+                {% if message %}
+                    <p>{{ message }}</p>
+                {% endif %}
+                <form action="/create/quiz" method="post" data-create-quiz="form">
+                    <div class="row">
+                        <div class="col-sm form-group">
+                            <label>Title of Quiz</label>
+                            <input name="quizTitle" class="form-control" required maxlength="200" placeholder="What Flower Are You?">
                         </div>
-                        <hr>
-                        <div>
-                            <label>Question 2</label>
-                            <input name="questionTwo" class="form-control form-control-sm" required maxlength="2000" placeholder="Favorite season?">
-                        </div>
-                        <hr>
-                        <div>
-                            <label>Question 3</label>
-                            <input name="questionThree" class="form-control form-control-sm" required maxlength="2000" placeholder="Type of color you like">
-                        </div>
-                        <hr>
-                        <div>
-                            <label>Question 4</label>
-                            <input name="questionFour" class="form-control form-control-sm" required maxlength="2000" placeholder="I'd like to travel to...">
-                        </div>
-                        <hr>
                         <div></div>
                     </div>
-    
-                    <!-- COLUMN 2 -->
-                    <div class="col-sm form-group">
-                        <div>
-                            <label>Answer for Result 1</label>
-                            <input name="questionOneAnswerOne" class="form-control form-control-sm" required maxlength="2000" placeholder="Morning">
+                    <hr>
+                    <div class="row">
+                        <!-- COLUMN 1 -->
+                        <div class="col-sm form-group">
+                            <div>
+                                <label>Question 1</label>
+                                <input name="questionOne" class="form-control form-control-sm" required maxlength="200" placeholder="Favorite time of day?">
+                            </div>
+                            <hr>
+                            <div>
+                                <label>Question 2</label>
+                                <input name="questionTwo" class="form-control form-control-sm" required maxlength="200" placeholder="Favorite season?">
+                            </div>
+                            <hr>
+                            <div>
+                                <label>Question 3</label>
+                                <input name="questionThree" class="form-control form-control-sm" required maxlength="200" placeholder="Type of color you like">
+                            </div>
+                            <hr>
+                            <div>
+                                <label>Question 4</label>
+                                <input name="questionFour" class="form-control form-control-sm" required maxlength="200" placeholder="I'd like to travel to...">
+                            </div>
+                            <hr>
+                            <div></div>
                         </div>
-                        <hr>
-                        <div>
-                            <label>Answer for Result 1</label>
-                            <input name="questionTwoAnswerOne" class="form-control form-control-sm" required maxlength="2000" placeholder="Spring">
+        
+                        <!-- COLUMN 2 -->
+                        <div class="col-sm form-group">
+                            <div>
+                                <label>Answer for Result 1</label>
+                                <input name="questionOneAnswerOne" class="form-control form-control-sm" required maxlength="200" placeholder="Morning">
+                            </div>
+                            <hr>
+                            <div>
+                                <label>Answer for Result 1</label>
+                                <input name="questionTwoAnswerOne" class="form-control form-control-sm" required maxlength="200" placeholder="Spring">
+                            </div>
+                            <hr>
+                            <div>
+                                <label>Answer for Result 1</label>
+                                <input name="questionThreeAnswerOne" class="form-control form-control-sm" required maxlength="200" placeholder="Pastel">
+                            </div>
+                            <hr>
+                            <div>
+                                <label>Answer for Result 1</label>
+                                <input name="questionFourAnswerOne" class="form-control form-control-sm" required maxlength="200"placeholder="Asia">
+                            </div>
+                            <hr>
+                            <div>
+                                <label>Result 1</label>
+                                <input name="resultOne" class="form-control form-control-sm" required maxlength="200" placeholder="Lotus">
+                            </div>
                         </div>
-                        <hr>
-                        <div>
-                            <label>Answer for Result 1</label>
-                            <input name="questionThreeAnswerOne" class="form-control form-control-sm" required maxlength="2000" placeholder="Pastel">
+        
+                        <!-- COLUMN 3 -->
+                        <div class="col-sm form-group">
+                            <div>
+                                <label>Answer for Result 2</label>
+                                <input name="questionOneAnswerTwo" class="form-control form-control-sm" required maxlength="200" placeholder="Afternoon">
+                            </div>
+                            <hr>
+                            <div>
+                                <label>Answer for Result 2</label>
+                                <input name="questionTwoAnswerTwo" class="form-control form-control-sm" required maxlength="200" placeholder="Fall">
+                            </div>
+                            <hr>
+                            <div>
+                                <label>Answer for Result 2</label>
+                                <input name="questionThreeAnswerTwo" class="form-control form-control-sm" required maxlength="200" placeholder="Warm or Neutral">
+                            </div>
+                            <hr>
+                            <div>
+                                <label>Answer for Result 2</label>
+                                <input name="questionFourAnswerTwo" class="form-control form-control-sm" required maxlength="200" placeholder="South America">
+                            </div>
+                            <hr>
+                            <div>
+                                <label>Result 2</label>
+                                <input name="resultTwo" class="form-control form-control-sm" required maxlength="200" placeholder="Orchid">
+                            </div>
                         </div>
-                        <hr>
-                        <div>
-                            <label>Answer for Result 1</label>
-                            <input name="questionFourAnswerOne" class="form-control form-control-sm" required maxlength="2000"placeholder="Asia">
+        
+                        <!-- COlUMN 4 -->
+                        <div class="col-sm form-group">
+                            <div>
+                                <label>Answer for Result 3</label>
+                                <input name="questionOneAnswerThree" class="form-control form-control-sm" required maxlength="200" placeholder="Evening">
+                            </div>
+                            <hr>
+                            <div>
+                                <label>Answer for Result 3</label>
+                                <input name="questionTwoAnswerThree" class="form-control form-control-sm" required maxlength="200" placeholder="Winter">
+                            </div>
+                            <hr>
+                            <div>
+                                <label>Answer for Result 3</label>
+                                <input name="questionThreeAnswerThree" class="form-control form-control-sm" required maxlength="200" placeholder="Cool">
+                            </div>
+                            <hr>
+                            <div>
+                                <label>Answer for Result 3</label>
+                                <input name="questionFourAnswerThree" class="form-control form-control-sm" required maxlength="200" placeholder="Europe">
+                            </div>
+                            <hr>
+                            <div>
+                                <label>Result 3</label>
+                                <input name="resultThree" class="form-control form-control-sm" required maxlength="200" placeholder="Hydrangea">
+                            </div>
                         </div>
-                        <hr>
-                        <div>
-                            <label>Result 1</label>
-                            <input name="resultOne" class="form-control form-control-sm" required maxlength="2000" placeholder="Lotus">
+        
+                        <!-- COlUMN 5 -->
+                        <div class="col-sm form-group">
+                            <div>
+                                <label>Answer for Result 4</label>
+                                <input name="questionOneAnswerFour" class="form-control form-control-sm" required maxlength="200" placeholder="Late Night/Early Morning">
+                            </div>
+                            <hr>
+                            <div>
+                                <label>Answer for Result 4</label>
+                                <input name="questionTwoAnswerFour" class="form-control form-control-sm" required maxlength="200" placeholder="Summer">
+                            </div>
+                            <hr>
+                            <div>
+                                <label>Answer for Result 4</label>
+                                <input name="questionThreeAnswerFour" class="form-control form-control-sm" required maxlength="200" placeholder="Neon">
+                            </div>
+                            <hr>
+                            <div>
+                                <label>Answer for Result 4</label>
+                                <input name="questionFourAnswerFour" class="form-control form-control-sm" required maxlength="200" placeholder="South Africa">
+                            </div>
+                            <hr>
+                            <div>
+                                <label>Result 4</label>
+                                <input name="resultFour" class="form-control form-control-sm" required maxlength="200" placeholder="Gazania">
+                            </div>
                         </div>
                     </div>
-    
-                    <!-- COLUMN 3 -->
-                    <div class="col-sm form-group">
-                        <div>
-                            <label>Answer for Result 2</label>
-                            <input name="questionOneAnswerTwo" class="form-control form-control-sm" required maxlength="2000" placeholder="Afternoon">
-                        </div>
-                        <hr>
-                        <div>
-                            <label>Answer for Result 2</label>
-                            <input name="questionTwoAnswerTwo" class="form-control form-control-sm" required maxlength="2000" placeholder="Fall">
-                        </div>
-                        <hr>
-                        <div>
-                            <label>Answer for Result 2</label>
-                            <input name="questionThreeAnswerTwo" class="form-control form-control-sm" required maxlength="2000" placeholder="Warm or Neutral">
-                        </div>
-                        <hr>
-                        <div>
-                            <label>Answer for Result 2</label>
-                            <input name="questionFourAnswerTwo" class="form-control form-control-sm" required maxlength="2000" placeholder="South America">
-                        </div>
-                        <hr>
-                        <div>
-                            <label>Result 2</label>
-                            <input name="resultTwo" class="form-control form-control-sm" required maxlength="2000" placeholder="Orchid">
-                        </div>
-                    </div>
-    
-                    <!-- COlUMN 4 -->
-                    <div class="col-sm form-group">
-                        <div>
-                            <label>Answer for Result 3</label>
-                            <input name="questionOneAnswerThree" class="form-control form-control-sm" required maxlength="2000" placeholder="Evening">
-                        </div>
-                        <hr>
-                        <div>
-                            <label>Answer for Result 3</label>
-                            <input name="questionTwoAnswerThree" class="form-control form-control-sm" required maxlength="2000" placeholder="Winter">
-                        </div>
-                        <hr>
-                        <div>
-                            <label>Answer for Result 3</label>
-                            <input name="questionThreeAnswerThree" class="form-control form-control-sm" required maxlength="2000" placeholder="Cool">
-                        </div>
-                        <hr>
-                        <div>
-                            <label>Answer for Result 3</label>
-                            <input name="questionFourAnswerThree" class="form-control form-control-sm" required maxlength="2000" placeholder="Europe">
-                        </div>
-                        <hr>
-                        <div>
-                            <label>Result 3</label>
-                            <input name="resultThree" class="form-control form-control-sm" required maxlength="2000" placeholder="Hydrangea">
-                        </div>
-                    </div>
-    
-                    <!-- COlUMN 5 -->
-                    <div class="col-sm form-group">
-                        <div>
-                            <label>Answer for Result 4</label>
-                            <input name="questionOneAnswerFour" class="form-control form-control-sm" required maxlength="2000" placeholder="Late Night/Early Morning">
-                        </div>
-                        <hr>
-                        <div>
-                            <label>Answer for Result 4</label>
-                            <input name="questionTwoAnswerFour" class="form-control form-control-sm" required maxlength="2000" placeholder="Summer">
-                        </div>
-                        <hr>
-                        <div>
-                            <label>Answer for Result 4</label>
-                            <input name="questionThreeAnswerFour" class="form-control form-control-sm" required maxlength="2000" placeholder="Neon">
-                        </div>
-                        <hr>
-                        <div>
-                            <label>Answer for Result 4</label>
-                            <input name="questionFourAnswerFour" class="form-control form-control-sm" required maxlength="2000" placeholder="South Africa">
-                        </div>
-                        <hr>
-                        <div>
-                            <label>Result 4</label>
-                            <input name="resultFour" class="form-control form-control-sm" required maxlength="2000" placeholder="Gazania">
-                        </div>
-                    </div>
-                </div>
-                <hr>
-                <!-- <a class="btn" id="home-Buttons" href="/view/all/quizzes">Submit</a> -->
-                <input class="btn" id="home-Buttons" href="/view/all/quizzes" type="submit">
-            </form>
-          
-         <!-- <form action="/create/quiz" method="post" data-create-quiz="form">
-
-                <div>
-                    <label>Title of Quiz</label>
-                    <input name="quizTitle" required maxlength="2000">
-                </div>
-                <div>
-                    <label>Result 1</label>
-                    <input name="resultOne" required maxlength="2000">
-                </div>
-                <div>
-                    <label>Result 2</label>
-                    <input name="resultTwo" required maxlength="2000">
-                </div>
-                <div>
-                    <label>Result 3</label>
-                    <input name="resultThree" required maxlength="2000">
-                </div>
-                <div>
-                    <label>Result 4</label>
-                    <input name="resultFour" required maxlength="2000">
-                </div>
-                <hr>
-
-                <div>
-                    <label>Question 1</label>
-                    <input name="questionOne" required maxlength="2000">
-                </div>
-                <div>
-                    <label>Answer for Result 1</label>
-                    <input name="questionOneAnswerOne" required maxlength="2000">
-                </div>
-                <div>
-                    <label>Answer for Result 2</label>
-                    <input name="questionOneAnswerTwo" required maxlength="2000">
-                </div>
-                <div>
-                    <label>Answer for Result 3</label>
-                    <input name="questionOneAnswerThree" required maxlength="2000">
-                </div>
-                <div>
-                    <label>Answer for Result 4</label>
-                    <input name="questionOneAnswerFour" required maxlength="2000">
-                </div>
-                <hr>
-
-                <div>
-                    <label>Question 2</label>
-                    <input name="questionTwo" required maxlength="2000">
-                </div>
-                <div>
-                    <label>Answer for Result 1</label>
-                    <input name="questionTwoAnswerOne" required maxlength="2000">
-                </div>
-                <div>
-                    <label>Answer for Result 2</label>
-                    <input name="questionTwoAnswerTwo" required maxlength="2000">
-                </div>
-                <div>
-                    <label>Answer for Result 3</label>
-                    <input name="questionTwoAnswerThree" required maxlength="2000">
-                </div>
-                <div>
-                    <label>Answer for Result 4</label>
-                    <input name="questionTwoAnswerFour" required maxlength="2000">
-                </div>
-                <hr>
-
-                <div>
-                    <label>Question 3</label>
-                    <input name="questionThree" required maxlength="2000">
-                </div>
-                <div>
-                    <label>Answer for Result 1</label>
-                    <input name="questionThreeAnswerOne" required maxlength="2000">
-                </div>
-                <div>
-                    <label>Answer for Result 2</label>
-                    <input name="questionThreeAnswerTwo" required maxlength="2000">
-                </div>
-                <div>
-                    <label>Answer for Result 3</label>
-                    <input name="questionThreeAnswerThree" required maxlength="2000">
-                </div>
-                <div>
-                    <label>Answer for Result 4</label>
-                    <input name="questionThreeAnswerFour" required maxlength="2000">
-                </div>
-                <hr>
-
-                <div>
-                    <label>Question 4</label>
-                    <input name="questionFour" required maxlength="2000">
-                </div>
-                <div>
-                    <label>Answer for Result 1</label>
-                    <input name="questionFourAnswerOne" required maxlength="2000">
-                </div>
-                <div>
-                    <label>Answer for Result 2</label>
-                    <input name="questionFourAnswerTwo" required maxlength="2000">
-                </div>
-                <div>
-                    <label>Answer for Result 3</label>
-                    <input name="questionFourAnswerThree" required maxlength="2000">
-                </div>
-                <div>
-                    <label>Answer for Result 4</label>
-                    <input name="questionFourAnswerFour" required maxlength="2000">
-                <hr>
-
-                <a href="/view/all/quizzes"><button type="submit">Submit</button></a>
-            </form> -->
+                    <hr>
+                    <input class="btn" id="home-Buttons" href="/view/all/quizzes" type="submit">
+                </form>
+            {% else %}
+                <p>You need to log in to view this page.</p>
+            {% endif %}
         {% include 'script.html' %}
         <script src="scripts/main.js" charset="utf-8"></script>
         <script src="scripts/datastore.js" charset="utf-8"></script>

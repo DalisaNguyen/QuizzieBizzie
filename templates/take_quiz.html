@@ -14,24 +14,24 @@
     <main class="jumbotron" id="take-quiz">
         <form action="/take/quiz/{{ quiz.quiz_id }}" method="post">
             {% if quiz %}
-            <div style="text-align: center;">
-                <h2>{{ quiz.quiz_name }}</h2>
-            </div>
-            <ol>
-                {% for question in quiz.questions %}
-                <li>{{question.question_name}}</li>
-                <ul>
-                    {% for answer in question.answers %}
-                    <div class="form-check">
-                        <label>
-                            <input type="radio" name="{{ question.question_id }}"
-                                value="{{ answer.result }}">{{ answer.answer_name }}
-                        </label>
-                    </div>
+                <div style="text-align: center;">
+                    <h2>{{ quiz.quiz_name }}</h2>
+                </div>
+                <ol>
+                    {% for question in quiz.questions %}
+                    <li>{{question.question_name}}</li>
+                    <ul>
+                        {% for answer in question.answers %}
+                        <div class="form-check">
+                            <label>
+                                <input type="radio" name="{{ question.question_id }}"
+                                    value="{{ answer.result }}">{{ answer.answer_name }}
+                            </label>
+                        </div>
+                        {% endfor %}
+                    </ul>
                     {% endfor %}
-                </ul>
-                {% endfor %}
-            </ol>
+                </ol>
             {% endif %}
             <div style="text-align: center;"><input class="btn" id="quiz-Buttons" type="submit"></div>
         </form>

@@ -9,18 +9,30 @@
       <li class="nav-item">
         <a class="nav-link" href="/">Home</a>
       </li>
-      <li class="nav-item">
-        <a class="nav-link" href="/create/quiz">Create</a>
-      </li>
-      <li class="nav-item">
-        <a class="nav-link" href="/view/all/quizzes">All Quizzes</a>
-      </li>
-      <li class="nav-item">
-        <a class="nav-link" href="/about">About</a>
-      </li>
-      <li class="nav-item">
-        <a class="btn btn-outline-success" id="log-nav" href="/login">Login</a>
-      </li>
+      {% if session['username'] %}
+        <li class="nav-item">
+          <a class="nav-link" href="/create/quiz">Create</a>
+        </li>
+        <li class="nav-item">
+            <a class="nav-link" href="/account/{{ session['user_id'] }}">Account</a>
+        </li>
+        <li class="nav-item">
+          <a class="nav-link" href="/about">About</a>
+        </li>
+        <li class="nav-item">
+            <a class="nav-link" href="/logout">Logout</a>
+        </li>
+      {% else %}
+        <li class="nav-item">
+          <a class="nav-link" href="/view/all/quizzes">All Quizzes</a>
+        </li>
+        <li class="nav-item">
+          <a class="nav-link" href="/about">About</a>
+        </li>
+        <li class="nav-item">
+          <a class="btn btn-outline-success" id="log-nav" href="/login">Login</a>
+        </li>
+      {% endif %}
     </ul>
   </div>
 </nav>

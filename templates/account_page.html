@@ -1,0 +1,41 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <title>Account</title>
+    {% include 'header.html' %}
+</head>
+
+<body id="home-body">
+    {% include 'navbar.html' %}
+    <div class="container text-center">
+        <h1 style="text-shadow: 6px 5px 3px rgba(0,0,0,0.7);">{{ session['username'] }}'s Account</h1>
+        <main class="jumbotron" id="main-tag">
+            <div class="container">
+                {% if session['username'] %}
+                    <p class="font-weight-bold" style="text-align: center;">Your Quizzes:</p>
+                    {% if quiz %}
+                        {% for quizzes in quiz %}
+                            <p style="margin: 0;">{{ quizzes.quiz_name }}</p>
+                            <a class="btn btn-info" href="/edit/quiz/{{ quizzes.quiz_id }}">Edit</a>
+                            <a class="btn btn-danger" href="/delete/quiz/{{ quizzes.quiz_id }}">Delete</a>
+                            <hr>
+                        {% endfor %}
+                    {% endif %}
+                    </div>
+                    <hr>
+                    <div class="container">
+                        <p class="font-weight-bold">Do you want to delete your account?</p>
+                    </div>
+                    <div class="container" style="align-content: center;">
+                        <a href="/delete/{{ session['user_id'] }}" class="btn btn-danger" id="cancel-log">Delete Account</a>
+                    </div>
+                {% else %}
+                    <p>You need to log in to view this page.</p>
+                {% endif %}
+        </main>
+    </div>
+    {% include 'script.html' %}
+</body>
+
+</html>

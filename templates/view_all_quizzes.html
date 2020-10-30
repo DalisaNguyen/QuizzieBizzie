@@ -15,11 +15,11 @@
         <main> 
             <form>
                 {% if quiz %}
-                {% for quizzes in quiz %}
-                <p id="view-quizes">
-                    <a href="/take/quiz/{{quizzes.quiz_id}}">{{quizzes.quiz_name}}</a>
-                </p>
-                {% endfor %}
+                    {% for quizzes in quiz %}
+                    <p id="view-quizes">
+                        <a href="/take/quiz/{{quizzes.quiz_id}}">{{quizzes.quiz_name}}</a>
+                    </p>
+                    {% endfor %}
                 {% endif %}
             </form>
         </main>
