@@ -5,7 +5,7 @@ from flask_sqlalchemy import SQLAlchemy
 app = Flask(__name__)
 app.config['SQLALCHEMY_DATABASE_URI'] = 'sqlite:///test.db'
 db = SQLAlchemy(app)
-app.secret_key = 'secret123'
+app.secret_key = '(G+KbPeShVmYq3t6w9z$C&E)H@McQfTjWnZr4u7x!A%D*G-JaNdRgUkXp2s5v8y/'
 
 # Many-to-many fields
 ans = db.Table('ans',
@@ -233,7 +233,7 @@ def login():
         if password == user_object.password:
             session['username'] = username
             session['user_id'] = user_object.user_id
-            return render_template("index.html")
+            return redirect(url_for('index'))
         else:
             return render_template('login_register.html', message="Login failed.")
     return render_template('login_register.html')
@@ -243,7 +243,7 @@ def logout():
     if session['username']:
         session.pop('username', None)
         session.pop('user_id', None)
-    return render_template('index.html')
+    return redirect(url_for('index'))
 
 @app.route('/edit/quiz/<int:id>', methods=['POST', 'GET'])
 def edit_quiz(id):
@@ -354,7 +354,7 @@ def delete(id):
     if session['username']:
         session.pop('username', None)
         session.pop('user_id', None)
-    return render_template('index.html')
+    return redirect(url_for('index'))
 
     
 @app.route('/delete/quiz/<int:id>')
@@ -378,8 +378,9 @@ def register():
         new_user = User(username=username, password=password)
         db.session.add(new_user)
         db.session.commit()
-        return render_template('index.html')
-    return render_template('login_register.html')
+        return redirect(url_for('index'))
+    return redirect(url)
+
 
 
 if __name__ == "__main__":
