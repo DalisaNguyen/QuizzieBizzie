@@ -17,6 +17,9 @@
         <main class="jumbotron" id="main-tag">
             <div class="container">
                 {% if session['username'] %}
+                    {% if message %}
+                        {{ message }}
+                    {% endif %}
                     <p class="font-weight-bold" style="text-align: center;">Your Quizzes:</p>
                     {% if quiz %}
                         {% for quizzes in quiz %}

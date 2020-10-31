@@ -7,22 +7,11 @@ app.config['SQLALCHEMY_DATABASE_URI'] = 'sqlite:///test.db'
 db = SQLAlchemy(app)
 app.secret_key = '(G+KbPeShVmYq3t6w9z$C&E)H@McQfTjWnZr4u7x!A%D*G-JaNdRgUkXp2s5v8y/'
 
-# Many-to-many fields
-ans = db.Table('ans',
-    db.Column('question_id', db.Integer, db.ForeignKey('question.question_id'), primary_key=True),
-    db.Column('answer_id', db.Integer, db.ForeignKey('answer.answer_id'), primary_key=True)
-)
-
-ques = db.Table('ques',
-    db.Column('quiz_id', db.Integer, db.ForeignKey('quiz.quiz_id'), primary_key=True),
-    db.Column('question_id', db.Integer, db.ForeignKey('question.question_id'), primary_key=True)
-)
-
 # Models
 class Quiz(db.Model):
     quiz_id = db.Column(db.Integer, primary_key=True)
     quiz_name = db.Column(db.String(200), nullable=False)
-    questions = db.relationship("Question", secondary=ques, backref=db.backref("questions", lazy="dynamic"))
+    questions = db.relationship("Question")
     user = db.Column(db.Integer, db.ForeignKey('user.user_id'))
 
     def __str__(self):
@@ -34,7 +23,8 @@ class Quiz(db.Model):
 class Question(db.Model):
     question_id = db.Column(db.Integer, primary_key=True)
     question_name = db.Column(db.String(200), nullable=False)
-    answers = db.relationship("Answer", secondary=ans, backref=db.backref("answers", lazy="dynamic"))
+    answers = db.relationship("Answer")
+    quiz = db.Column(db.Integer, db.ForeignKey('quiz.quiz_id'))
 
     def __str__(self):
         return '<Question ' + str(self.question_id) + ', ' + str(self.question_name) + '>'
@@ -46,6 +36,7 @@ class Answer(db.Model):
     answer_id = db.Column(db.Integer, primary_key=True)
     answer_name = db.Column(db.String(200), nullable=False)
     result = db.Column(db.String(200), nullable=False)
+    question = db.Column(db.Integer, db.ForeignKey('question.question_id'))
 
     def __str__(self):
         return '<Answer ' + str(self.answer_id) + ', ' + str(self.answer_name) + '>'
@@ -77,6 +68,12 @@ def create_quiz():
         try: 
             # get input
             quiz_name = request.form.get('quizTitle', None)
+
+            # check if unique
+            count = Quiz.query.filter_by(quiz_name=quiz_name).count()
+            if count > 0:
+                return render_template('create_quiz.html', message="Quiz creation failed. The quiz name is taken.")
+
             result_one = request.form.get('resultOne', None)
             result_two = request.form.get('resultTwo', None)
             result_three = request.form.get('resultThree', None)
@@ -107,6 +104,10 @@ def create_quiz():
             question_four_answer_four = request.form.get('questionFourAnswerFour', None)
 
             # create objects and link them
+            quiz = Quiz(quiz_name=quiz_name, user=session['user_id'])
+            db.session.add(quiz)
+            db.session.commit()
+
             question_one = Question(question_name=question_one)
             db.session.add(question_one)
             db.session.commit()
@@ -123,6 +124,7 @@ def create_quiz():
             question_one.answers.append(answer_two)
             question_one.answers.append(answer_three)
             question_one.answers.append(answer_four)
+            quiz.questions.append(question_one)
             db.session.commit()
 
             question_two = Question(question_name=question_two)
@@ -141,6 +143,7 @@ def create_quiz():
             question_two.answers.append(answer_two)
             question_two.answers.append(answer_three)
             question_two.answers.append(answer_four)
+            quiz.questions.append(question_two)
             db.session.commit()
 
             question_three = Question(question_name=question_three)
@@ -159,6 +162,7 @@ def create_quiz():
             question_three.answers.append(answer_two)
             question_three.answers.append(answer_three)
             question_three.answers.append(answer_four)
+            quiz.questions.append(question_three)
             db.session.commit()
             
             question_four = Question(question_name=question_four)
@@ -177,18 +181,11 @@ def create_quiz():
             question_four.answers.append(answer_two)
             question_four.answers.append(answer_three)
             question_four.answers.append(answer_four)
-            db.session.commit()
-
-            quiz = Quiz(quiz_name=quiz_name, user=session['user_id'])
-            db.session.add(quiz)
-            db.session.commit()
-            quiz.questions.append(question_one)
-            quiz.questions.append(question_two)
-            quiz.questions.append(question_three)
             quiz.questions.append(question_four)
             db.session.commit()
+            
         except Exception as e:
-            print(e)
+            return render_template('create_quiz.html', message="The quiz could not be created.")
         return redirect('/view/all/quizzes')
     else:
         return render_template('create_quiz.html')
@@ -213,7 +210,6 @@ def result():
 
 @app.route('/view/all/quizzes')
 def view_all_quizzes():
-    # query all objects
     quiz_objects = Quiz.query.order_by(Quiz.quiz_id).all()
     return render_template('view_all_quizzes.html', quiz= quiz_objects)
 
@@ -227,13 +223,17 @@ def login():
         session.pop('username', None)
         username = request.form.get('username', None)
         password = request.form.get('password', None)
-        user_object = User.query.filter_by(username=username).first_or_404()
-        print(username)
-        print(password)
-        if password == user_object.password:
-            session['username'] = username
-            session['user_id'] = user_object.user_id
-            return redirect(url_for('index'))
+        count = User.query.filter_by(username=username).count()
+        if count > 0:
+            print(username)
+            print(password)
+            user_object = User.query.filter_by(username=username).first_or_404()
+            if password == user_object.password:
+                session['username'] = username
+                session['user_id'] = user_object.user_id
+                return redirect(url_for('index'))
+            else:
+                return render_template('login_register.html', message="Login failed.")
         else:
             return render_template('login_register.html', message="Login failed.")
     return render_template('login_register.html')
@@ -375,11 +375,14 @@ def register():
     if request.method == "POST":
         username = request.form.get('new_username', None)
         password = request.form.get('new_password', None)
+        count = User.query.filter_by(username=username).count()
+        if count > 0:
+            return render_template('login_register.html', message="Registration failed. The username is already taken.")
         new_user = User(username=username, password=password)
         db.session.add(new_user)
         db.session.commit()
-        return redirect(url_for('index'))
-    return redirect(url)
+        return render_template('login_register.html', message="Registration complete. Please login with your new account.")
+    return redirect(url_for('index'))
 
 
 
