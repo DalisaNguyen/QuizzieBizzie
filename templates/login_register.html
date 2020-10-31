@@ -16,7 +16,7 @@
         <form action="/login" method="post">
             <div class="container">
                 {% if message %}
-                    <p>Error: {{ message }}</p>
+                    <p>{{ message }}</p>
                 {% endif %}
                 <div class="form-group">
                     <label for="username"><b>Username</b></label>
