@@ -1,4 +1,4 @@
-# flask349
+# QuizzieBizzie
 This is a project for CPSC 349. The project allow users to create and take quizzes. 
 
 - Chao Wu
