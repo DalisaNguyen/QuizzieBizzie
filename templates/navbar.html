@@ -9,6 +9,9 @@
       <li class="nav-item">
         <a class="nav-link" href="/">Home</a>
       </li>
+      <li class="nav-item">
+        <a class="nav-link" href="/view/all/quizzes">All Quizzes</a>
+      </li>
       {% if session['username'] %}
         <li class="nav-item">
           <a class="nav-link" href="/create/quiz">Create</a>
@@ -23,9 +26,6 @@
             <a class="nav-link" href="/logout">Logout</a>
         </li>
       {% else %}
-        <li class="nav-item">
-          <a class="nav-link" href="/view/all/quizzes">All Quizzes</a>
-        </li>
         <li class="nav-item">
           <a class="nav-link" href="/about">About</a>
         </li>
