@@ -6,6 +6,8 @@ This is a project for CPSC 349. The project allow users to create and take quizz
 - Graciela Orozco
 - Ismael Barajas
 
+## Presentation 
+Google drive: https://drive.google.com/drive/folders/1ohW0_RMHTyhpls3KY1jj4zeNb46-yoXv?usp=sharing
 
 ## Introduction
 Flask is a micro web framework that uses Python functions to develop website pages. SQLAlchemy is an object-relational mapper for Python that essentially converts Python models into SQL code. The database that this application is connected to is SQLite. Virtualenv is a tool to create a Python environment for a project. All of the installed packages that run within the virtual environment will only be installed within itself, not globally. 
